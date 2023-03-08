@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="JavaWeb三大组件 前言：最近需用到内存马，先回顾一下基础知识。 ##Servlet server applet：运行在服务器端的小程序。（Servlet就是一个接口，定义 了java类被浏览器访问到(tomcat)的规则） ###快速入门  创建一个javaEE项目 定义一个类，实现servlet接口 实现接口中的抽象方法 配置servlet  12345678&lt;servlet&gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k4i_x3i0">
+<meta property="og:url" content="http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/index.html">
+<meta property="og:site_name" content="k4i_x3i0">
+<meta property="og:description" content="JavaWeb三大组件 前言：最近需用到内存马，先回顾一下基础知识。 ##Servlet server applet：运行在服务器端的小程序。（Servlet就是一个接口，定义 了java类被浏览器访问到(tomcat)的规则） ###快速入门  创建一个javaEE项目 定义一个类，实现servlet接口 实现接口中的抽象方法 配置servlet  12345678&lt;servlet&gt;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307165315794.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307194729883.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307202225092.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307202225092.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307204041118.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307210002944.png">
+<meta property="article:published_time" content="2023-03-08T17:00:53.003Z">
+<meta property="article:modified_time" content="2023-03-08T16:50:00.923Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307165315794.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>k4i_x3i0</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2023/03/09/%E6%96%B0%E7%9A%84%E5%BC%80%E5%A7%8B/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&text="><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&is_video=false&description="><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&name=&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&t="><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">JavaWeb三大组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8web-xml%E6%B3%A8%E5%86%8C"><span class="toc-number">1.0.1.</span> <span class="toc-text">使用web.xml注册</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Filter"><span class="toc-number">1.1.</span> <span class="toc-text">Filter</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.1.1.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FilterChain"><span class="toc-number">1.1.2.</span> <span class="toc-text">FilterChain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Filter%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="toc-number">1.1.3.</span> <span class="toc-text">Filter执行顺序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#listener"><span class="toc-number">1.2.</span> <span class="toc-text">listener</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">John Doe</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-03-08T17:00:53.003Z" itemprop="datePublished">2023-03-09</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="JavaWeb三大组件"><a href="#JavaWeb三大组件" class="headerlink" title="JavaWeb三大组件"></a>JavaWeb三大组件</h1><hr>
+<p>前言：最近需用到内存马，先回顾一下基础知识。</p>
+<p>##Servlet</p>
+<p>server applet：运行在服务器端的小程序。（Servlet就是一个接口，定义 了java类被浏览器访问到(tomcat)的规则）</p>
+<p>###快速入门</p>
+<ul>
+<li>创建一个<code>javaEE</code>项目</li>
+<li>定义一个类，实现<code>servlet</code>接口</li>
+<li>实现接口中的抽象方法</li>
+<li>配置<code>servlet</code></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>demo1<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>Servlet.ServletDemo1<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>demo1<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/demo1<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>###Servlet执行原理</p>
+<p>没有main方法，会自动调用<code>service</code>方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.当服务器接收到客户端浏览器请求后，会解析请求URL路径，获取访问的Servlet的资源路径</span><br><span class="line">2.查找web.xml文件，是否有对应的&lt;url-oattern&gt;标签体内容</span><br><span class="line">3.如果有，则会找到对应的&lt;servlet-class&gt;全类名</span><br><span class="line">4.tomcat会将字节码文件加载进内存并创建其对象</span><br><span class="line">5.调用其方法</span><br></pre></td></tr></table></figure>
+
+<p>###生命周期</p>
+<ul>
+<li>创建：执行<code>init</code>方法，只执行一次。</li>
+</ul>
+<blockquote>
+<p>1，默认服务第一次被访问的时候</p>
+<p>2，手动设置：web.xml中，使用<code>&lt;load-on-startup&gt;</code>标签</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--指定servlet的创建时机</span></span><br><span class="line"><span class="comment">1,第一次被访问创建 ：load-on-startup为负数</span></span><br><span class="line"><span class="comment">2.服务器启动时创建：load-on-startup为0或正数</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>安全问题：</p>
+<p>只执行一次。说明<code>Servlet</code>在内存中只存在一个对象，是单例的。</p>
+<p>多个用户访问时可能存在线程安全问题。所以尽量不要在<code>Servlet</code>中定义成员变量，即使定义了也不要修改值</p>
+</blockquote>
+<ul>
+<li>提供服务：执行service方法。每次<code>Servlet</code>被访问时都会被调用</li>
+<li>销毁：执行destroy方法 。</li>
+</ul>
+<blockquote>
+<ul>
+<li>服务器关闭时，<code>Servlet</code>被销毁，只有在服务器正常关闭才会调用<code>destroy</code>，强制关闭不会</li>
+<li><code>destroy</code>在<code>Servlet</code>被销毁前执行，一般用于释放资源。</li>
+</ul>
+</blockquote>
+<p>###Servlet3.0</p>
+<p>支持注解配置，可以不需要<code>web.xml</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1,创建JavaEE项目</span><br><span class="line">2，定义一个类，实现Servlet接口</span><br><span class="line">3，复写方法</span><br><span class="line">4，在类上使用@WebServlet注解进行配置</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用web-xml注册"><a href="#使用web-xml注册" class="headerlink" title="使用web.xml注册"></a>使用web.xml注册</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>test2Demo<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>  //要注册的servlet的名字</span><br><span class="line">       <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.example.tomcatdemo.test2Demo<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span>  //指向要注册的servlet 的类地址</span><br><span class="line">   <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span> //是用来配置我们注册的组件的访问路径</span><br><span class="line">       <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>test2Demo<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>  //与前面一致</span><br><span class="line">       <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/hello2<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span> //配置这个组件的访问路径</span><br><span class="line">   <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">test2Demo</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">parameter</span> <span class="operator">=</span> req.getParameter(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        <span class="type">PrintWriter</span> <span class="variable">writer</span> <span class="operator">=</span> resp.getWriter();</span><br><span class="line">        writer.write(<span class="string">&quot;Hello &quot;</span>+parameter+<span class="string">&quot;!&quot;</span>);</span><br><span class="line">        writer.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>###无需webxml注册</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@WebServlet(name =&quot;testServlet&quot;,value = &quot;/hello&quot;)  </span><br><span class="line">或者</span><br><span class="line">@WebServlet(&quot;/hello&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>###ServletConfig</p>
+<p>​    当Servlet容器初始化一个<code>Servlet</code>时，会为这个<code>Servlet</code>创建一个<code>ServletConfig</code>对象，并将 <code>ServletConfig</code> 对象作为参数传递给<code>Servlet</code>。<code>ServletConfig</code>对象封装了<code>Servlet</code>的一些独有参数信息(如图)，因此一个<code>Servlet</code>只能对应一个<code>ServletConfig</code>。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307165315794.png" alt="image-20230307165315794"></p>
+<p>实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet(&quot;/config&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">testServlet</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        resp.setContentType(<span class="string">&quot;text/html;charset=UTF-8&quot;</span>);</span><br><span class="line">        <span class="type">ServletConfig</span> <span class="variable">servletConfig</span> <span class="operator">=</span> getServletConfig();</span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> servletConfig.getServletName();</span><br><span class="line">        <span class="type">PrintWriter</span> <span class="variable">writer</span> <span class="operator">=</span> resp.getWriter();</span><br><span class="line">        writer.write(<span class="string">&quot;Servlet名称为：&quot;</span>+name);</span><br><span class="line">        writer.close();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Servlet名称为：com.example.tomcatdemo.testServlet</span><br></pre></td></tr></table></figure>
+
+<p>###ServletContext</p>
+<p>Servlet 容器启动时，会为每个 Web 应用（webapps 下的每个目录都是一个 Web 应用）创建一个唯一的 ServletContext 对象，该对象一般被称为“Servlet 上下文”。由于一个Web应用可以包含多个Servlet，因此ServletContext可以看作是一个Web应用中各Servlet的共享资源。不同 Servlet 之间可以通过ServletContext对象实现数据通讯，因此ServletContext对象也被称为Context域对象。ServletContext 对象的生命周期从 Servlet 容器启动时开始，到容器关闭或应用被卸载时结束。通过ServletContext可以获取Web应用中一些共享的资源。下例使用ServletContext来获取上下文初始化参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet(&quot;/context&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Context</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        resp.setContentType(<span class="string">&quot;text/html; charset=UTF-8&quot;</span>);</span><br><span class="line">        <span class="type">PrintWriter</span> <span class="variable">writer</span> <span class="operator">=</span> resp.getWriter();</span><br><span class="line"></span><br><span class="line">        <span class="type">ServletContext</span> <span class="variable">servletContext</span> <span class="operator">=</span> getServletContext();</span><br><span class="line"></span><br><span class="line">        Enumeration&lt;String&gt; initParamerNames = servletContext.getInitParameterNames();</span><br><span class="line">        <span class="keyword">while</span>(initParamerNames.hasMoreElements())&#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">ParamerName</span> <span class="operator">=</span> initParamerNames.nextElement();</span><br><span class="line">            <span class="type">String</span> <span class="variable">Paramer</span> <span class="operator">=</span> servletContext.getInitParameter(ParamerName);</span><br><span class="line">            writer.write(ParamerName+<span class="string">&quot;：&quot;</span>+Paramer+<span class="string">&quot;&lt;br/&gt;&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        writer.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在web.xml中配置一个上下文初始化参数</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">display-name</span>&gt;</span>Archetype Created Web Application<span class="tag">&lt;/<span class="name">display-name</span>&gt;</span></span><br><span class="line">  //配置上下文初始化参数name</span><br><span class="line">  <span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>name<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>Feng<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>age<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>18<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307194729883.png" alt="image-20230307194729883"></p>
+<h2 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h2><p>Filter(过滤器)，用于拦截客户端的请求以及服务端的响应，对请求和响应做出相应的处理。</p>
+<p>实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebFilter(&quot;/config&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Filter1</span> <span class="keyword">implements</span> <span class="title class_">Filter</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(FilterConfig config)</span> <span class="keyword">throws</span> ServletException &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">destroy</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        response.setContentType(<span class="string">&quot;text/html; charset=UTF-8&quot;</span>);</span><br><span class="line">        <span class="type">PrintWriter</span> <span class="variable">writer</span> <span class="operator">=</span> response.getWriter();</span><br><span class="line">        writer.write(<span class="string">&quot;调用Filter1！&lt;/br&gt;&quot;</span>);</span><br><span class="line">        chain.doFilter(request,response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看出和的流程图一样，先调用fileter</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307202225092.png" alt="image-20230307202225092"></p>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>Filter的生命周期和Servlet一样，Filter的创建和销毁也是由WEB服务器负责。</p>
+<ul>
+<li>创建：执行<code>init</code>方法，只执行一次,web服务器启动时调用</li>
+</ul>
+<blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(FilterConfig config)</span> <span class="keyword">throws</span> ServletException &#123;&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li>拦截和过滤阶段当客户请求访问与过滤器关联的URL的时候，Servlet过滤器将先执行doFilter方法。FilterChain参数用于访问后续过滤器</li>
+</ul>
+<blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">  response.setContentType(<span class="string">&quot;text/html; charset=UTF-8&quot;</span>);</span><br><span class="line">  <span class="type">PrintWriter</span> <span class="variable">writer</span> <span class="operator">=</span> response.getWriter();</span><br><span class="line">  writer.write(<span class="string">&quot;调用Filter1！&lt;/br&gt;&quot;</span>);</span><br><span class="line">  chain.doFilter(request,response);</span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li>销毁：执行destroy方法 。</li>
+</ul>
+<blockquote>
+<ul>
+<li>服务器关闭时，<code>Servlet</code>被销毁，只有在服务器正常关闭才会调用<code>destroy</code>，强制关闭不会</li>
+<li><code>destroy</code>在<code>Servlet</code>被销毁前执行，一般用于释放资源。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;public void destroy() &#123;&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="FilterChain"><a href="#FilterChain" class="headerlink" title="FilterChain"></a>FilterChain</h3><p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307202225092.png" alt="image-20230307204134172"></p>
+<p>一个Servlet可以注册多个Filter，Web容器会将注册的多个Filter组合成一个“Filter链”，并按照一定的顺序依次执行各Filter的doFilter()方法。</p>
+<p><code>FilterChain</code>就是这样一个接口，其doFIiter()方法用于将本Filter处理完的Servlet资源交给下一个Filter处理。例</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307204041118.png" alt="image-20230307204041118"></p>
+<h3 id="Filter执行顺序"><a href="#Filter执行顺序" class="headerlink" title="Filter执行顺序"></a>Filter执行顺序</h3><p>有了<code>FilterChain</code>,那肯定有一个执行顺序。根据Filter的注册方式不同，Filter的执行顺序也有所不同</p>
+<ul>
+<li>基于注解配置：按照类名的字符串比较规则比较，值小的先执行</li>
+<li>使用web.xml配置：根据对应的Mapping的顺序组织，谁定义在上边谁就在前</li>
+</ul>
+<p>###filterConfig</p>
+<p>​    和Servlet类似，由于Filter也有可能访问Servlet，所以Servlet 规范将代表 ServletContext 对象和 Filter 的配置参数信息都封装到一个称为 FilterConfig 的对象中。FilterConfig接口则用于定义FilterConfig对象应该对外提供的方法，以便在 Filter的doFilter()方法中可以调用这些方法来获取 ServletContext 对象，以及获取在 web.xml 文件中的一些初始化参数。</p>
+<h2 id="listener"><a href="#listener" class="headerlink" title="listener"></a>listener</h2><p>Listener是一个实现了特定接口的Java程序，用于监听一个方法或者属性，当被监听的方法被调用或者属性改变时，就会自动执行某个方法。</p>
+<p>###Listener相关概念：</p>
+<ul>
+<li>事件：某个方法被调用，或者属性的改变</li>
+<li>事件源：被监听的对象（如ServletContext、requset、方法等）</li>
+<li>监听器：用于监听事件源，当发生事件时会触发监听器</li>
+</ul>
+<p>###监听器分类</p>
+<table>
+<thead>
+<tr>
+<th align="left">事件源</th>
+<th align="left">监听器</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ServletContext</td>
+<td align="left">ServletContextListener</td>
+<td align="left">用于监听 ServletContext 对象的创建与销毁过程</td>
+</tr>
+<tr>
+<td align="left">HttpSession</td>
+<td align="left">HttpSessionListener</td>
+<td align="left">用于监听 HttpSession 对象的创建和销毁过程</td>
+</tr>
+<tr>
+<td align="left">ServletRequest</td>
+<td align="left">ServletRequestListener</td>
+<td align="left">用于监听 ServletRequest 对象的创建和销毁过程</td>
+</tr>
+<tr>
+<td align="left">ServletContext</td>
+<td align="left">ServletContextAttributeListener</td>
+<td align="left">用于监听 ServletContext 对象的属性新增、移除和替换</td>
+</tr>
+<tr>
+<td align="left">HttpSession</td>
+<td align="left">HttpSessionAttributeListener</td>
+<td align="left">用于监听 HttpSession 对象的属性新增、移除和替换</td>
+</tr>
+<tr>
+<td align="left">ServletRequest</td>
+<td align="left">ServletRequestAttributeListener</td>
+<td align="left">用于监听 HttpServletRequest 对象的属性新增、移除和替换</td>
+</tr>
+<tr>
+<td align="left">HttpSession</td>
+<td align="left">HttpSessionBindingListener</td>
+<td align="left">用于监听 JavaBean 对象绑定到 HttpSession 对象和从 HttpSession 对象解绑的事件</td>
+</tr>
+<tr>
+<td align="left">HttpSession</td>
+<td align="left">HttpSessionActivationListener</td>
+<td align="left">用于监听 HttpSession 中对象活化和钝化的过程</td>
+</tr>
+</tbody></table>
+<p>按照监听的对象不同可以划分为三类</p>
+<ul>
+<li>ServletContextListener</li>
+<li>HttpSessionListener</li>
+<li>ServletRequestListener</li>
+</ul>
+<p>以<code>ServletRequestListener</code>举例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebListener</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Listener1</span> <span class="keyword">implements</span> <span class="title class_">ServletRequestListener</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">requestInitialized</span><span class="params">(ServletRequestEvent sre)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;request1&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">requestDestroyed</span><span class="params">(ServletRequestEvent sre)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;request2&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307210002944.png" alt="image-20230307210002944"></p>
+<p>##三者的调用顺序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Listener-&gt;Filter-&gt;Servlet</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">JavaWeb三大组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8web-xml%E6%B3%A8%E5%86%8C"><span class="toc-number">1.0.1.</span> <span class="toc-text">使用web.xml注册</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Filter"><span class="toc-number">1.1.</span> <span class="toc-text">Filter</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.1.1.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FilterChain"><span class="toc-number">1.1.2.</span> <span class="toc-text">FilterChain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Filter%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="toc-number">1.1.3.</span> <span class="toc-text">Filter执行顺序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#listener"><span class="toc-number">1.2.</span> <span class="toc-text">listener</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&text="><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&is_video=false&description="><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&name=&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&t="><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2023
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
