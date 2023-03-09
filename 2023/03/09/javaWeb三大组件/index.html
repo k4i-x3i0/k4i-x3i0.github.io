@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="JavaWeb三大组件 前言：最近需用到内存马，先回顾一下基础知识。 ##Servlet server applet：运行在服务器端的小程序。（Servlet就是一个接口，定义 了java类被浏览器访问到(tomcat)的规则） ###快速入门  创建一个javaEE项目 定义一个类，实现servlet接口 实现接口中的抽象方法 配置servlet  12345678&lt;servlet&gt;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="k4i_x3i0">
-<meta property="og:url" content="http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/index.html">
+<meta property="og:title" content="JAVAWEB三大组件">
+<meta property="og:url" content="http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/index.html">
 <meta property="og:site_name" content="k4i_x3i0">
 <meta property="og:description" content="JavaWeb三大组件 前言：最近需用到内存马，先回顾一下基础知识。 ##Servlet server applet：运行在服务器端的小程序。（Servlet就是一个接口，定义 了java类被浏览器访问到(tomcat)的规则） ###快速入门  创建一个javaEE项目 定义一个类，实现servlet接口 实现接口中的抽象方法 配置servlet  12345678&lt;servlet&gt;">
 <meta property="og:locale" content="zh_CN">
@@ -19,8 +19,8 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307202225092.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307204041118.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307210002944.png">
-<meta property="article:published_time" content="2023-03-08T17:00:53.003Z">
-<meta property="article:modified_time" content="2023-03-08T16:50:00.923Z">
+<meta property="article:published_time" content="2023-03-09T06:13:58.000Z">
+<meta property="article:modified_time" content="2023-03-09T06:14:08.909Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307165315794.png">
@@ -43,7 +43,7 @@
       
     
     <!-- title -->
-    <title>k4i_x3i0</title>
+    <title>JAVAWEB三大组件</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -81,8 +81,6 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="上一篇" href="/2023/03/09/test/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
-        
         
         <li><a class="icon" aria-label="下一篇" href="/2023/03/09/%E6%96%B0%E7%9A%84%E5%BC%80%E5%A7%8B/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
@@ -97,17 +95,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&text="><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&is_video=false&description="><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&name=&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&t="><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&text=JAVAWEB三大组件"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title=JAVAWEB三大组件"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&is_video=false&description=JAVAWEB三大组件"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JAVAWEB三大组件&body=Check out this article: http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title=JAVAWEB三大组件"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title=JAVAWEB三大组件"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title=JAVAWEB三大组件"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title=JAVAWEB三大组件"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&name=JAVAWEB三大组件&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&t=JAVAWEB三大组件"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -124,7 +122,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        
+        JAVAWEB三大组件
     </h1>
 
 
@@ -136,7 +134,7 @@
       
     <div class="postdate">
       
-        <time datetime="2023-03-08T17:00:53.003Z" itemprop="datePublished">2023-03-09</time>
+        <time datetime="2023-03-09T06:13:58.000Z" itemprop="datePublished">2023-03-09</time>
         
       
     </div>
@@ -237,7 +235,7 @@
 <li>拦截和过滤阶段当客户请求访问与过滤器关联的URL的时候，Servlet过滤器将先执行doFilter方法。FilterChain参数用于访问后续过滤器</li>
 </ul>
 <blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">  response.setContentType(<span class="string">&quot;text/html; charset=UTF-8&quot;</span>);</span><br><span class="line">  <span class="type">PrintWriter</span> <span class="variable">writer</span> <span class="operator">=</span> response.getWriter();</span><br><span class="line">  writer.write(<span class="string">&quot;调用Filter1！&lt;/br&gt;&quot;</span>);</span><br><span class="line">  chain.doFilter(request,response);</span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">&gt;response.setContentType(<span class="string">&quot;text/html; charset=UTF-8&quot;</span>);</span><br><span class="line">&gt;<span class="type">PrintWriter</span> <span class="variable">writer</span> <span class="operator">=</span> response.getWriter();</span><br><span class="line">&gt;writer.write(<span class="string">&quot;调用Filter1！&lt;/br&gt;&quot;</span>);</span><br><span class="line">&gt;chain.doFilter(request,response);</span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <ul>
 <li>销毁：执行destroy方法 。</li>
@@ -360,17 +358,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&text="><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&is_video=false&description="><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title="><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&name=&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/03/09/javaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&t="><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&text=JAVAWEB三大组件"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title=JAVAWEB三大组件"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&is_video=false&description=JAVAWEB三大组件"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JAVAWEB三大组件&body=Check out this article: http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title=JAVAWEB三大组件"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title=JAVAWEB三大组件"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title=JAVAWEB三大组件"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&title=JAVAWEB三大组件"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&name=JAVAWEB三大组件&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/&t=JAVAWEB三大组件"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
