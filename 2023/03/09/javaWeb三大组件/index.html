@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="JavaWeb三大组件 前言：最近需用到内存马，先回顾一下基础知识。 ##Servlet server applet：运行在服务器端的小程序。（Servlet就是一个接口，定义 了java类被浏览器访问到(tomcat)的规则） ###快速入门  创建一个javaEE项目 定义一个类，实现servlet接口 实现接口中的抽象方法 配置servlet  12345678&lt;servlet&gt;">
+    <meta name="description" content="前言：最近需用到内存马，先回顾一下基础知识。 ##Servlet server applet：运行在服务器端的小程序。（Servlet就是一个接口，定义 了java类被浏览器访问到(tomcat)的规则） ###快速入门  创建一个javaEE项目 定义一个类，实现servlet接口 实现接口中的抽象方法 配置servlet  12345678&lt;servlet&gt;    &lt;ser">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JAVAWEB三大组件">
 <meta property="og:url" content="http://example.com/2023/03/09/JAVAWEB%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6/index.html">
 <meta property="og:site_name" content="k4i_x3i0">
-<meta property="og:description" content="JavaWeb三大组件 前言：最近需用到内存马，先回顾一下基础知识。 ##Servlet server applet：运行在服务器端的小程序。（Servlet就是一个接口，定义 了java类被浏览器访问到(tomcat)的规则） ###快速入门  创建一个javaEE项目 定义一个类，实现servlet接口 实现接口中的抽象方法 配置servlet  12345678&lt;servlet&gt;">
+<meta property="og:description" content="前言：最近需用到内存马，先回顾一下基础知识。 ##Servlet server applet：运行在服务器端的小程序。（Servlet就是一个接口，定义 了java类被浏览器访问到(tomcat)的规则） ###快速入门  创建一个javaEE项目 定义一个类，实现servlet接口 实现接口中的抽象方法 配置servlet  12345678&lt;servlet&gt;    &lt;ser">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307165315794.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307194729883.png">
@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307204041118.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307210002944.png">
 <meta property="article:published_time" content="2023-03-09T06:13:58.000Z">
-<meta property="article:modified_time" content="2023-03-09T06:14:08.909Z">
+<meta property="article:modified_time" content="2023-03-09T06:18:32.020Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230307165315794.png">
@@ -110,7 +110,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">JavaWeb三大组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8web-xml%E6%B3%A8%E5%86%8C"><span class="toc-number">1.0.1.</span> <span class="toc-text">使用web.xml注册</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Filter"><span class="toc-number">1.1.</span> <span class="toc-text">Filter</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.1.1.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FilterChain"><span class="toc-number">1.1.2.</span> <span class="toc-text">FilterChain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Filter%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="toc-number">1.1.3.</span> <span class="toc-text">Filter执行顺序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#listener"><span class="toc-number">1.2.</span> <span class="toc-text">listener</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8web-xml%E6%B3%A8%E5%86%8C"><span class="toc-number">1.</span> <span class="toc-text">使用web.xml注册</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Filter"><span class="toc-number"></span> <span class="toc-text">Filter</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FilterChain"><span class="toc-number">2.</span> <span class="toc-text">FilterChain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Filter%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="toc-number">3.</span> <span class="toc-text">Filter执行顺序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#listener"><span class="toc-number"></span> <span class="toc-text">listener</span></a>
     </div>
   </span>
 </div>
@@ -149,7 +149,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h1 id="JavaWeb三大组件"><a href="#JavaWeb三大组件" class="headerlink" title="JavaWeb三大组件"></a>JavaWeb三大组件</h1><hr>
+    <hr>
 <p>前言：最近需用到内存马，先回顾一下基础知识。</p>
 <p>##Servlet</p>
 <p>server applet：运行在服务器端的小程序。（Servlet就是一个接口，定义 了java类被浏览器访问到(tomcat)的规则）</p>
@@ -353,7 +353,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaWeb%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">JavaWeb三大组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8web-xml%E6%B3%A8%E5%86%8C"><span class="toc-number">1.0.1.</span> <span class="toc-text">使用web.xml注册</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Filter"><span class="toc-number">1.1.</span> <span class="toc-text">Filter</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.1.1.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FilterChain"><span class="toc-number">1.1.2.</span> <span class="toc-text">FilterChain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Filter%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="toc-number">1.1.3.</span> <span class="toc-text">Filter执行顺序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#listener"><span class="toc-number">1.2.</span> <span class="toc-text">listener</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8web-xml%E6%B3%A8%E5%86%8C"><span class="toc-number">1.</span> <span class="toc-text">使用web.xml注册</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Filter"><span class="toc-number"></span> <span class="toc-text">Filter</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FilterChain"><span class="toc-number">2.</span> <span class="toc-text">FilterChain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Filter%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="toc-number">3.</span> <span class="toc-text">Filter执行顺序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#listener"><span class="toc-number"></span> <span class="toc-text">listener</span></a>
     </div>
 
     <div id="share-footer" style="display: none">
