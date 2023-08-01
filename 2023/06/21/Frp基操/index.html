@@ -1,32 +1,284 @@
-extends includes/layout.pug
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
 
-block content
-  #post
-    if top_img === false
-      include includes/header/post-info.pug
+  
+  <title>Frp基操 | k4i_x3i0&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="##端口转发 模拟环境： 本地win11开启web服务模拟内网机器，kali模拟已经拿到shell的linux靶机。 需求：将内网win11的服务转发到公网上，让攻击者能够直接访问 服务端设置 （放vps运行） 1234567891011[common] bind_port &#x3D; 10000  dashboard_port &#x3D; 10050 dashboard_user &#x3D; admindashboar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Frp基操">
+<meta property="og:url" content="http://example.com/2023/06/21/Frp%E5%9F%BA%E6%93%8D/index.html">
+<meta property="og:site_name" content="k4i_x3i0&#39;s blog">
+<meta property="og:description" content="##端口转发 模拟环境： 本地win11开启web服务模拟内网机器，kali模拟已经拿到shell的linux靶机。 需求：将内网win11的服务转发到公网上，让攻击者能够直接访问 服务端设置 （放vps运行） 1234567891011[common] bind_port &#x3D; 10000  dashboard_port &#x3D; 10050 dashboard_user &#x3D; admindashboar">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230621221926307.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230621214014141.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230621214706286.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230621221606626.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230621221546423.png">
+<meta property="article:published_time" content="2023-06-21T14:18:17.000Z">
+<meta property="article:modified_time" content="2023-07-04T17:43:06.143Z">
+<meta property="article:author" content="k4i_x3i0">
+<meta property="article:tag" content="RedTeam">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230621221926307.png">
+  
+    <link rel="alternate" href="/atom.xml" title="k4i_x3i0&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-    article#article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      include includes/third-party/share/index.pug
-        
-    if theme.reward.enable
-      !=partial('includes/post/reward', {}, {cache: true})
+<meta name="generator" content="Hexo 5.4.2"></head>
 
-    //- ad
-    if theme.ad && theme.ad.post
-      .ads-wrap!=theme.ad.post
-
-    if theme.post_pagination
-      include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
-
-    if page.comments !== false && theme.comments && theme.comments.use
-      - var commentsJsLoad = true
-      !=partial('includes/third-party/comments/index', {}, {cache: true})
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">k4i_x3i0&#39;s blog</a>
+      </h1>
       
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Frp基操" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/06/21/Frp%E5%9F%BA%E6%93%8D/" class="article-date">
+  <time datetime="2023-06-21T14:18:17.000Z" itemprop="datePublished">2023-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/RedTeam/">RedTeam</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Frp基操
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##端口转发</p>
+<p>模拟环境：</p>
+<p>本地win11开启web服务模拟内网机器，kali模拟已经拿到shell的linux靶机。</p>
+<p>需求：将内网win11的服务转发到公网上，让攻击者能够直接访问</p>
+<p>服务端设置 （放vps运行）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[common] </span><br><span class="line">bind_port = 10000  </span><br><span class="line">dashboard_port = 10050 </span><br><span class="line">dashboard_user = admin</span><br><span class="line">dashboard_pwd = admin</span><br><span class="line">enable_prometheus = true</span><br><span class="line">vhost_http_port = 8087    #http服务要在服务端设置</span><br><span class="line"></span><br><span class="line">log_file = ./log/frps.log</span><br><span class="line">log_level = info</span><br><span class="line">log_max_days = 3</span><br></pre></td></tr></table></figure>
+
+<p>客户端设置 (在kali中运行)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = vpsIP</span><br><span class="line">server_port = 10000</span><br><span class="line"></span><br><span class="line">user = k4</span><br><span class="line"></span><br><span class="line">[web]</span><br><span class="line">type = http</span><br><span class="line">use_compression = true</span><br><span class="line">local_ip = 10.254.2.55</span><br><span class="line">custom_domains = vpsIP</span><br><span class="line">local_port = 8087</span><br><span class="line">remote_port = 8087</span><br><span class="line"></span><br><span class="line">log_file = ./log/frpc.log</span><br><span class="line">log_level = debug</span><br></pre></td></tr></table></figure>
+
+<p>能够拿到win的shell，太危险辣，没事就别挂本机的，小心学习资料暴露(狗头)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230621221926307.png" alt="image-20230621221926307"></p>
+<p>frp使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#后台运行frp后台</span><br><span class="line">./frps -c frps.ini &gt;/dev/null 2&gt;&amp;1 &amp;  #启动</span><br><span class="line">ps -aux|grep frp| grep -v grep  #关闭（杀进程）</span><br><span class="line">root      3600  0.1  0.1 110188  9484 pts/0    Sl   15:04   0:00 ./frpc -c ./frpc.ini </span><br><span class="line">kill -9 3600</span><br></pre></td></tr></table></figure>
+
+<p>还可以配合利用systemctl来控制启动</p>
+<h2 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h2><p>上面实例只是将本地的单个端口转发到了公网上，但是渗透环境中需要将内网环境带出来。这样子就需要搭建一个反向代理：代理服务器接收internet的请求，然后将请求转发给内部网络的服务器，并将从内网服务器返回的结果返回给internet上请求连接的客户端</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230621214014141.png" alt="image-20230621214014141"></p>
+<h3 id="FRP"><a href="#FRP" class="headerlink" title="FRP"></a>FRP</h3><p>Frp服务端</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frps -c ./frps.ini</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">Bind_addr = 0.0.0.0   </span><br><span class="line">bind_port = 7000    </span><br><span class="line"></span><br><span class="line">dashboard_port = 7500  </span><br><span class="line">dashboard_user = admin     </span><br><span class="line">dashboard_pwd = admin</span><br><span class="line"> </span><br><span class="line">allow_ports = 40000-50000</span><br></pre></td></tr></table></figure>
+
+<p>Frp客户端</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frpc -c ./frpc.ini</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = vpsIP</span><br><span class="line">server_port = 7000     </span><br><span class="line">tls_enable = ture     </span><br><span class="line">pool_count = 5    </span><br><span class="line"></span><br><span class="line">[socks5]</span><br><span class="line">type = tcp</span><br><span class="line">remote_port = 46075</span><br><span class="line">plugin = socks5</span><br><span class="line">plugin_user = admin</span><br><span class="line">plugin_passwd = admin</span><br><span class="line">use_encryption = true</span><br><span class="line">use_compression = true</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230621214706286.png" alt="image-20230621214706286"></p>
+<h3 id="Proxifier"><a href="#Proxifier" class="headerlink" title="Proxifier"></a>Proxifier</h3><p>设置好代理后即可访问</p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230621221606626.png" alt="image-20230621221606626"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/k4i-x3i0/pictures/images/image-20230621221546423.png" alt="image-20230621221546423"></p>
+<h2 id="Frp部分参数"><a href="#Frp部分参数" class="headerlink" title="Frp部分参数"></a>Frp部分参数</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Bind_addr = 0.0.0.0   #服务端监听地址 默认0.0.0.0</span><br><span class="line">bind_port = 7000    #服务端监听端口</span><br><span class="line">dashboard_port = 7500  #状态以及代理统计信息展示,vpsip:7500可查看详情</span><br><span class="line">dashboard_user = admin     #访问用户</span><br><span class="line">dashboard_pwd = password    # dashboard_pwd访问密码</span><br><span class="line">log_file = ./frps.log    #log_file日志文件</span><br><span class="line"></span><br><span class="line">log_level = info    # log_level记录的日志级别</span><br><span class="line">log_max_days = 3     # log_max_days日志留存3天</span><br><span class="line">authentication_timeout = 0     #authentication_timeout超时时间</span><br><span class="line">max_pool_count最大链接池,每个代理预先与后端服务器建立起指定数量的最大链接数</span><br><span class="line">max_pool_count = 50</span><br><span class="line">allow_ports = 40000-50000  #允许代理绑定的服务端端口</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://gofrp.org/docs/faq/">https://gofrp.org/docs/faq/</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42335264/article/details/83584367">https://blog.csdn.net/qq_42335264/article/details/83584367</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hackmang/p/14516969.html">https://www.cnblogs.com/hackmang/p/14516969.html</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/06/21/Frp%E5%9F%BA%E6%93%8D/" data-id="clj5t3kqz0000n8uqf8s20xzn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RedTeam/" rel="tag">RedTeam</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/06/20/CobaltStrike%E5%9F%BA%E6%93%8D/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CobaltStrike基操</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RedTeam/">RedTeam</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RedTeam/" rel="tag">RedTeam</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/RedTeam/" style="font-size: 10px;">RedTeam</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">六月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/06/21/Frp%E5%9F%BA%E6%93%8D/">Frp基操</a>
+          </li>
+        
+          <li>
+            <a href="/2023/06/20/CobaltStrike%E5%9F%BA%E6%93%8D/">CobaltStrike基操</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/03/2023-5-3-6-1%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/">2023.5.3-6.1刷题日记</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/25/%E6%B8%97%E9%80%8F%E5%8F%96%E7%BB%8F-vulStack1/">渗透取经-vulStack1</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/17/fastjson%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-1224-68/">fastjson漏洞分析-1224-68</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 k4i_x3i0<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
